@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\SignatureRepository;
 use PDO;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -10,8 +11,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomepageController extends AbstractController
 {
     #[Route('/', name: 'homepage')]
-    public function index(): Response
+    public function index(SignatureRepository $signatureRepository): Response
     {
-        return $this->render('homepage/index.html.twig', []);
+        $user = $this->getUser();
+        $signatures = $signatureRepository->findBy(['user' => $user]);
+
+        return $this->render('homepage/index.html.twig', [
+            'signatures' => $signatures,
+        ]);
     }
 }

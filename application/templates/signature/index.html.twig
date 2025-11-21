@@ -7,23 +7,23 @@
 
     <table class="table">
         <thead>
-        <tr>
-            <th>Signatur Name</th>
-            <th></th>
-        </tr>
+            <tr>
+                <th>SignatureName</th>
+                <th>actions</th>
+            </tr>
         </thead>
         <tbody>
         {% for signature in signatures %}
             <tr>
                 <td>{{ signature.signatureName }}</td>
                 <td>
-                    <a role="button" href="{{ path('app_signature_show', {'id': signature.id}) }}">anzeigen</a>
-                    <a role="button" href="{{ path('app_signature_edit', {'id': signature.id}) }}">bearbeiten</a>
+                    <a role="button" href="{{ path('app_signature_show', {'id': signature.id}) }}">show</a>
+                    <a role="button" href="{{ path('app_signature_edit', {'id': signature.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="25">Keine Signatur</td>
+                <td colspan="25">no records found</td>
             </tr>
         {% endfor %}
         </tbody>

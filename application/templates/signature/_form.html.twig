@@ -1,0 +1,38 @@
+{{ form_start(form) }}
+    <div class="grid">
+        <div>
+            {{ form_row(form.signatureName) }}
+            {{ form_row(form.firstName) }}
+            {{ form_row(form.lastName) }}
+            {{ form_row(form.jobTitle) }}
+            {{ form_row(form.companyName) }}
+            {{ form_row(form.street) }}
+            {{ form_row(form.houseNumber) }}
+            {{ form_row(form.postalCode) }}
+            {{ form_row(form.city) }}
+        </div>
+        <div>
+            {{ form_row(form.email) }}
+            {{ form_row(form.phone) }}
+            {{ form_row(form.fax) }}
+            {{ form_row(form.website) }}
+            {{ form_row(form.instagram) }}
+            {{ form_row(form.facebook) }}
+            {{ form_row(form.linkedin) }}
+            {{ form_row(form.xing) }}
+            {{ form_row(form.github) }}
+        </div>
+        <div>
+            {{ form_row(form.bank) }}
+            {{ form_row(form.iban) }}
+            {{ form_row(form.bic) }}
+            {{ form_row(form.logo) }}
+            {% if signature.logo is not null %}
+                <div class="mb-4 email-signal-img">
+                    <img src="{{ url('app_landing_page') }}/upload/logos/{{ email_signature.image }}">
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <button class="btn btn-left">{{ button_label|default('Speichern') }}</button>
+{{ form_end(form) }}

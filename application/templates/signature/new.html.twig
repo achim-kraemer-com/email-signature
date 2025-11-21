@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Neue Signatur{% endblock %}
+
+{% block body %}
+    <h1>Neue Signatur erstellen</h1>
+
+    {{ include('signature/_form.html.twig') }}
+
+    <a role="button" class="btn-center" href="{{ path('homepage') }}">zurück zur Liste</a>
+{% endblock %}

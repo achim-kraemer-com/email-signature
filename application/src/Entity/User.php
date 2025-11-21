@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -12,6 +14,14 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
 class User extends IdentifiableModel implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    final public const ROLE_USER            = 'Benutzer';
+    final public const ROLE_ADMIN           = 'Admin';
+
+    final public const ROLES = [
+        self::ROLE_USER            => 'ROLE_USER',
+        self::ROLE_ADMIN           => 'ROLE_ADMIN',
+    ];
+
     #[ORM\Column(length: 180)]
     private ?string $email = null;
 
@@ -26,6 +36,23 @@ class User extends IdentifiableModel implements UserInterface, PasswordAuthentic
      */
     #[ORM\Column]
     private ?string $password = null;
+
+    /**
+     * @var Collection<int, Signature>
+     */
+    #[ORM\OneToMany(targetEntity: Signature::class, mappedBy: 'user')]
+    private Collection $signatures;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->signatures = new ArrayCollection();
+    }
+
+    public function __toString(): string
+    {
+        return $this->getEmail();
+    }
 
     public function getEmail(): ?string
     {
@@ -101,5 +128,35 @@ class User extends IdentifiableModel implements UserInterface, PasswordAuthentic
     public function eraseCredentials(): void
     {
         // @deprecated, to be removed when upgrading to Symfony 8
+    }
+
+    /**
+     * @return Collection<int, Signature>
+     */
+    public function getSignatures(): Collection
+    {
+        return $this->signatures;
+    }
+
+    public function addSignature(Signature $signature): static
+    {
+        if (!$this->signatures->contains($signature)) {
+            $this->signatures->add($signature);
+            $signature->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSignature(Signature $signature): static
+    {
+        if ($this->signatures->removeElement($signature)) {
+            // set the owning side to null (unless already changed)
+            if ($signature->getUser() === $this) {
+                $signature->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }

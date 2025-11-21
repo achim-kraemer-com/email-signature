@@ -2,13 +2,23 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}ELB Solution!{% endblock %}</title>
+        <title>{% block title %}Email Signatur{% endblock %}</title>
         {% block stylesheets %}
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
             <link rel="stylesheet" href="{{ asset('styles/app.css') }}">
         {% endblock %}
     </head>
     <body class="flex h-screen bg-gray-100">
-        {% block body %}{% endblock %}
+        <main class="container">
+            {% if app.user and is_granted('ROLE_USER') %}
+                <h1 class="text-3xl font-bold mb-4">Email Signatur</h1>
+                <div class="my-body-grid">
+                    {% include '_sidebar.html.twig' %}
+                </div>
+            {% endif %}
+        </main>
+        <main class="container-fluid">
+            {% block body %}{% endblock %}
+        </main>
     </body>
 </html>

@@ -13,7 +13,7 @@ class IdentifiableModel
     #[ORM\Id]
     #[ORM\Column(name: 'id', type: 'uuid', unique: true)]
     #[ORM\GeneratedValue(strategy: 'NONE')]
-    protected Uuid $id;
+    public Uuid $id;
 
     #[ORM\Column(type: 'datetime_immutable', options: ['default' => 'CURRENT_TIMESTAMP'])]
     protected \DateTimeImmutable $createdAt;
