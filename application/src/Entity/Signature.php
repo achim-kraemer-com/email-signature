@@ -72,7 +72,7 @@ class Signature extends IdentifiableModel
     private ?string $bic = null;
 
     #[ORM\ManyToOne(inversedBy: 'signatures')]
-    private ?User $user = null;
+    private User $user;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $logo = null;
@@ -89,7 +89,7 @@ class Signature extends IdentifiableModel
     public function __construct(User $user)
     {
         parent::__construct();
-        $this->setUser($user);
+        $this->user = $user;
     }
 
     public function getSignatureName(): ?string
@@ -349,7 +349,7 @@ class Signature extends IdentifiableModel
         return $this->user;
     }
 
-    public function setUser(?User $user): static
+    public function setUser(User $user): static
     {
         $this->user = $user;
 

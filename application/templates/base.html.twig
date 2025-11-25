@@ -11,16 +11,16 @@
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
-    <body class="flex h-screen bg-gray-100">
+    <body>
         <main class="container">
             {% if app.user and is_granted('ROLE_USER') %}
-                <h1 class="text-3xl font-bold mb-4">Email Signatur</h1>
+                <h1>Email Signatur</h1>
                 <div class="my-body-grid">
                     {% include '_sidebar.html.twig' %}
                 </div>
             {% endif %}
         </main>
-        <main class="container-fluid">
+        <main class="container">
             {% block body %}{% endblock %}
         </main>
     </body>
