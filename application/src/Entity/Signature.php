@@ -23,16 +23,16 @@ class Signature extends IdentifiableModel
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $jobTitle = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $street = null;
 
-    #[ORM\Column(length: 10)]
+    #[ORM\Column(length: 10, nullable: true)]
     private ?string $houseNumber = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $postalCode = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $city = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -157,7 +157,7 @@ class Signature extends IdentifiableModel
         return $this->street;
     }
 
-    public function setStreet(string $street): static
+    public function setStreet(?string $street): static
     {
         $this->street = $street;
 
@@ -169,7 +169,7 @@ class Signature extends IdentifiableModel
         return $this->houseNumber;
     }
 
-    public function setHouseNumber(string $houseNumber): static
+    public function setHouseNumber(?string $houseNumber): static
     {
         $this->houseNumber = $houseNumber;
 
@@ -181,7 +181,7 @@ class Signature extends IdentifiableModel
         return $this->postalCode;
     }
 
-    public function setPostalCode(int $postalCode): static
+    public function setPostalCode(?int $postalCode): static
     {
         $this->postalCode = $postalCode;
 
@@ -193,7 +193,7 @@ class Signature extends IdentifiableModel
         return $this->city;
     }
 
-    public function setCity(string $city): static
+    public function setCity(?string $city): static
     {
         $this->city = $city;
 

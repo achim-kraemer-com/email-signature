@@ -1,3 +1,4 @@
+{% set marginTop = '5px' %}
 <div style="max-width:600px; font-family: Arial, Helvetica, sans-serif; font-size:12px; line-height:18px; color:#000000;">
     <div style="margin-bottom:10px;">Liebe Grüße,</div>
 
@@ -16,9 +17,25 @@
                         {{ signature.firstname }} {{ signature.lastname }}
                     </div>
 
+                    {% if signature.companyName is not null %}
+                        <div style="padding-bottom: 3px;text-align: left;font: normal normal bold 15px/18px Arial;letter-spacing: 0;color: #000000;opacity: 1;">
+                            {{ signature.companyName }}
+                        </div>
+                    {% endif %}
+
                     {% if signature.jobTitle is not null %}
                         <div style="font-family: Arial, Helvetica, sans-serif; font-size:12px; line-height:15px; font-weight:normal; color:#928A8A; margin-bottom:3px;">
                             <span style="font-weight:bold;">{{ signature.jobTitle }}</span>
+                        </div>
+                    {% endif %}
+                    {% if signature.street is not null and signature.houseNumber is not null %}
+                        <div style="padding-top: 10px;font-family: Arial, Helvetica, sans-serif; font-size:12px; line-height:15px; font-weight:normal; color:#928A8A; margin-bottom:3px;">
+                            <span style="font-weight:bold;">{{ signature.street }} {{ signature.houseNumber }}</span>
+                        </div>
+                    {% endif %}
+                    {% if signature.postalCode is not null and signature.city is not null%}
+                        <div style="font-family: Arial, Helvetica, sans-serif; font-size:12px; line-height:15px; font-weight:normal; color:#928A8A; margin-bottom:3px;">
+                            <span style="font-weight:bold;">{{ signature.postalCode }} {{ signature.city }}</span>
                         </div>
                     {% endif %}
                 </div>
@@ -28,51 +45,55 @@
                 <table cellpadding="0" cellspacing="0" border="0" width="100%" style="padding-left: 14px; border-collapse:collapse";>
                     {% if signature.phone is not null %}
                         <tr>
-                            <td width="20" valign="middle">
+                            <td width="20" valign="middle" style="padding-top: {{ marginTop }}">
                                 <img src="{{ app.request.getSchemeAndHttpHost() }}/uploads/images/phone.png" alt="phone" width="14" height="14" style="display:block;width: 14px;height: 14px;">
                             </td>
-                            <td valign="middle" style="font-family: Arial, Helvetica, sans-serif; font-size:12px; line-height:18px; color:#000000; padding-bottom:5px;">
+                            <td valign="middle" style="font-family: Arial, Helvetica, sans-serif; font-size:12px; line-height:18px; color:#000000; padding-bottom:5px;;padding-top: {{ marginTop }}">
                                 <a href="tel:{{ signature.phone }}" style="color:#000000; text-decoration:none !important; -webkit-text-decoration:none; -ms-text-decoration:none;">{{ signature.phone }}</a>
                             </td>
                         </tr>
+                        {% set marginTop = '0px' %}
                     {% endif %}
 
                     {% if signature.mobile is not null %}
                         <tr>
-                            <td width="20" valign="middle" style="width: 20px">
+                            <td width="20" valign="middle" style="width: 20px;padding-top: {{ marginTop }}">
                                 <img src="{{ app.request.getSchemeAndHttpHost() }}/uploads/images/card-sim.png" alt="mobile" width="14" height="14" style="display:block;width: 14px;height: 14px;">
                             </td>
-                            <td valign="middle" style="font-family: Arial, Helvetica, sans-serif; font-size:12px; line-height:18px; color:#000000; padding-bottom:5px;">
+                            <td valign="middle" style="font-family: Arial, Helvetica, sans-serif; font-size:12px; line-height:18px; color:#000000; padding-bottom:5px;;padding-top: {{ marginTop }}">
                                 <a href="tel:{{ signature.mobile }}" style="color:#000000; text-decoration:none !important; -webkit-text-decoration:none; -ms-text-decoration:none;">{{ signature.mobile }}</a>
                             </td>
                         </tr>
+                        {% set marginTop = '0px' %}
                     {% endif %}
 
                     {% if signature.fax is not null %}
                         <tr>
-                            <td width="20" valign="middle" style="width: 20px">
+                            <td width="20" valign="middle" style="width: 20px;padding-top: {{ marginTop }}">
                                 <img src="{{ app.request.getSchemeAndHttpHost() }}/uploads/images/printer.png" alt="fax" width="14" height="14" style="display:block;width: 14px;height: 14px;">
                             </td>
-                            <td valign="middle" style="font-family: Arial, Helvetica, sans-serif; font-size:12px; line-height:18px; color:#000000; padding-bottom:5px;">
+                            <td valign="middle" style="font-family: Arial, Helvetica, sans-serif; font-size:12px; line-height:18px; color:#000000; padding-bottom:5px;;padding-top: {{ marginTop }}">
                                 <a href="tel:{{ signature.fax }}" style="color:#000000; text-decoration:none !important; -webkit-text-decoration:none; -ms-text-decoration:none;">{{ signature.fax }}</a>
                             </td>
                         </tr>
+                        {% set marginTop = '0px' %}
                     {% endif %}
 
                     <tr>
-                        <td width="20" valign="middle" style="width: 20px">
+                        <td width="20" valign="middle" style="width: 20px;padding-top: {{ marginTop }}">
                             <img src="{{ app.request.getSchemeAndHttpHost() }}/uploads/images/mail.png" alt="email" width="14" height="14" style="display:block;width: 14px;height: 14px;">
                         </td>
-                        <td valign="middle" style="font-family: Arial, Helvetica, sans-serif; font-size:12px; line-height:18px; color:#000000; padding-bottom:5px;">
+                        <td valign="middle" style="font-family: Arial, Helvetica, sans-serif; font-size:12px; line-height:18px; color:#000000; padding-bottom:5px;;padding-top: {{ marginTop }}">
                             <a href="mailto:{{ signature.email }}" style="color:#000000; text-decoration:none !important; -webkit-text-decoration:none; -ms-text-decoration:none;">{{ signature.email }}</a>
                         </td>
                     </tr>
+                    {% set marginTop = '0px' %}
 
                     <tr>
                         <td width="20" valign="middle" style="width: 20px">
                             <img src="{{ app.request.getSchemeAndHttpHost() }}/uploads/images/globe.png" alt="website" width="14" height="14" style="display:block;width: 14px;height: 14px;">
                         </td>
-                        <td valign="middle" style="font-family: Arial, Helvetica, sans-serif; font-size:12px; line-height:18px; color:#000000; padding-bottom:5px;">
+                        <td valign="middle" style="font-family: Arial, Helvetica, sans-serif; font-size:12px; line-height:18px; color:#000000; padding-bottom:5px;;padding-top: {{ marginTop }}">
                             <a href="https://{{ signature.website }}" target="_blank" style="color:#000000; text-decoration:none !important; -webkit-text-decoration:none; -ms-text-decoration:none;">{{ signature.website }}</a>
                         </td>
                     </tr>
@@ -100,6 +121,65 @@
             </td>
         </tr>
     </table>
+    {% if signature.owner is not null or signature.tagNumber is not null or signature.bank is not null or signature.iban is not null or signature.bic is not null %}
+        <table cellpadding="0" cellspacing="0" border="0" width="100%" style="padding-left: 14px; border-collapse:collapse;margin-left: 10px;margin-top: 10px;">
+            <tr>
+                {% if signature.owner is not null or signature.tagNumber is not null %}
+                    {% if signature.owner is not null %}
+                        <td style="vertical-align: middle;min-width: 275px;max-width: 285px;min-height: 120px;padding-left: 14px;padding-top: 5px;background: #F6F5F5 0 0 no-repeat padding-box;opacity: 1;" bgcolor="#F6F5F5"; >
+                            Inhaber: <span style="font-weight: bold">{{ signature.owner }}</span>
+                        </td>
+                    {% else %}
+                        <td style="vertical-align: middle;min-width: 275px;max-width: 285px;min-height: 120px;padding-left: 14px; background: #F6F5F5 0 0 no-repeat padding-box;opacity: 1;" bgcolor="#F6F5F5"; >
+                        </td>
+                    {% endif %}
+                {% endif %}
+                {% if signature.bank is not null or signature.iban is not null or signature.bic is not null %}
+                    {% if signature.bank is not null %}
+                        <td style="vertical-align: middle;min-width: 264px;max-width: 285px;min-height: 120px;padding-left: 14px; background: #F6F5F5 0 0 no-repeat padding-box;opacity: 1;" bgcolor="#F6F5F5"; >
+                            <span style="font-weight: bold">{{ signature.bank }}</span>
+                        </td>
+                    {% else %}
+                        <td style="vertical-align: middle;min-width: 264px;max-width: 285px;min-height: 120px;padding-left: 14px; background: #F6F5F5 0 0 no-repeat padding-box;opacity: 1;" bgcolor="#F6F5F5"; >
+                        </td>
+                    {% endif %}
+                {% else %}
+                    <td style="vertical-align: middle;min-width: 264px;max-width: 285px;min-height: 120px;padding-left: 14px; background: #F6F5F5 0 0 no-repeat padding-box;opacity: 1;" bgcolor="#F6F5F5"; >
+                    </td>
+                {% endif %}
+            </tr>
+            <tr>
+                {% if signature.tagNumber is not null %}
+                    <td style="vertical-align: middle;min-width: 275px;max-width: 285px;min-height: 120px;padding-left: 14px; background: #F6F5F5 0 0 no-repeat padding-box;opacity: 1;" bgcolor="#F6F5F5"; >
+                        USSt: <span style="font-weight: bold">{{ signature.tagNumber }}</span>
+                    </td>
+                {% else %}
+                    <td style="vertical-align: middle;min-width: 275px;max-width: 285px;min-height: 120px;padding-left: 14px; background: #F6F5F5 0 0 no-repeat padding-box;opacity: 1;" bgcolor="#F6F5F5"; >
+                    </td>
+                {% endif %}
+                {% if signature.iban is not null %}
+                    <td style="vertical-align: middle;min-width: 275px;max-width: 285px;min-height: 120px;padding-left: 14px; background: #F6F5F5 0 0 no-repeat padding-box;opacity: 1;" bgcolor="#F6F5F5"; >
+                        IBAN: <span style="font-weight: bold">{{ signature.iban }}</span>
+                    </td>
+                {% else %}
+                    <td style="vertical-align: middle;min-width: 275px;max-width: 285px;min-height: 120px;padding-left: 14px; background: #F6F5F5 0 0 no-repeat padding-box;opacity: 1;" bgcolor="#F6F5F5"; >
+                    </td>
+                {% endif %}
+            </tr>
+            <tr>
+                <td style="vertical-align: middle;min-width: 275px;max-width: 285px;min-height: 120px;padding-left: 14px; background: #F6F5F5 0 0 no-repeat padding-box;opacity: 1;" bgcolor="#F6F5F5"; >
+                </td>
+                {% if signature.bic is not null %}
+                    <td style="vertical-align: middle;min-width: 275px;max-width: 285px;min-height: 120px;padding-left: 14px; padding-bottom: 5px;background: #F6F5F5 0 0 no-repeat padding-box;opacity: 1;" bgcolor="#F6F5F5"; >
+                        BIC: <span style="font-weight: bold">{{ signature.bic }}</span>
+                    </td>
+                {% else %}
+                    <td style="vertical-align: middle;min-width: 275px;max-width: 285px;min-height: 120px;padding-left: 14px;padding-bottom: 5px;background: #F6F5F5 0 0 no-repeat padding-box;opacity: 1;" bgcolor="#F6F5F5"; >
+                    </td>
+                {% endif %}
+            </tr>
+        </table>
+    {% endif %}
 
 {#    {% if signature.logo is not null %}#}
 {#        <div style="margin-top:14px; margin-left:15px; max-width:570px;">#}

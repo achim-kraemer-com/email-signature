@@ -132,6 +132,6 @@ final class SignatureController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_signature_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);
     }
 }

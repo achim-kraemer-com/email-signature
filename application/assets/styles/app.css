@@ -1,8 +1,9 @@
 :root {
-    --pico-border-radius: 2rem;
     --pico-typography-spacing-vertical: 1.5rem;
     --pico-form-element-spacing-vertical: 0.4rem;
     --pico-form-element-spacing-horizontal: 0.6rem;
+    --pico-background-color: #2d2d28ff;
+    --pico-text-color: #fae6cdff;
     --pico-font-size: 0.9rem;
     --pico-line-height: 1.2;
 }
@@ -43,7 +44,28 @@ a {
 }
 .btn-left {
     position: absolute;
-    left: 20px;
+    @media (min-width: 1280px) {
+        .container {
+            max-width: 1200px;
+        }
+    }
+    @media (min-width: 1024px) {
+        .container {
+            max-width: 950px;
+        }
+    }
+    @media (min-width: 768px) {
+        .container {
+            max-width: 700px;
+        }
+    }
+    @media (min-width: 576px) {
+        .container {
+            max-width: 510px;
+            padding-right: 0;
+            padding-left: 0;
+        }
+    }
 }
 
 .btn-center {
@@ -53,7 +75,29 @@ a {
 
 .btn-right {
     position: absolute;
-    right: 20px;
+    @media (min-width: 1280px) {
+        .container {
+            left: 1280px;
+        }
+    }
+    @media (min-width: 1024px) {
+        .container {
+            left: 950px;
+        }
+    }
+    @media (min-width: 768px) {
+        .container {
+            left: 700px;
+        }
+    }
+    @media (min-width: 576px) {
+        .container {
+            left: 510px;
+            padding-right: 0;
+            padding-left: 0;
+        }
+    }
+    left: 1280px;
 }
 .no-pico-wrapper,
 .no-pico-wrapper *,
