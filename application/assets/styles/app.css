@@ -2,10 +2,17 @@
     --pico-typography-spacing-vertical: 1.5rem;
     --pico-form-element-spacing-vertical: 0.4rem;
     --pico-form-element-spacing-horizontal: 0.6rem;
-    --pico-background-color: #2d2d28ff;
-    --pico-text-color: #fae6cdff;
+    --pico-background-color: #2d2d28;
+    --pico-color: #fae6cd;
     --pico-font-size: 0.9rem;
     --pico-line-height: 1.2;
+    --pico-primary: #9169f5;
+    --pico-primary-hover: #7a58d1;
+    --pico-primary-focus: rgba(145, 105, 245, 0.25);
+
+    /* Custom table colors */
+    --pico-table-border-color: #4a4a43;
+    --pico-table-row-stripped-background-color: #33332d;
 }
 h1 {
     --pico-font-weight: 400;
@@ -114,9 +121,34 @@ a {
 .bg-white {
     background: #fff;
 }
+#achim-kraemer-image {
+    width: 70px;
+}
+.heading {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 20px;
+}
 /*img {*/
 /*    max-width: 100%;*/
 /*    height: auto;*/
 /*    width: 14px;*/
 /*    display: block;*/
 /*}*/
+
+/* Improved Table Design */
+table {
+    --pico-border-color: var(--pico-table-border-color);
+    --pico-striped-table-background-color: var(--pico-table-row-stripped-background-color);
+}
+
+table thead th {
+    background-color: #3a3a33;
+    color: #fae6cd;
+    border-bottom: 2px solid var(--pico-primary);
+}
+
+tbody tr:hover {
+    background-color: #404039;
+}

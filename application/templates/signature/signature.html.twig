@@ -111,6 +111,9 @@
                                 {% if signature.linkedin is not null %}
                                     <a href="{{ signature.linkedin }}" target="_blank"><img src="{{ app.request.getSchemeAndHttpHost() }}/uploads/images/linkedin.png" alt="linkedin" width="14" height="14" style="display:inline-block; margin-left:5px;width: 14px;height: 14px;"></a>
                                 {% endif %}
+                                {% if signature.xing is not null %}
+                                    <a href="{{ signature.xing }}" target="_blank"><img src="{{ app.request.getSchemeAndHttpHost() }}/uploads/images/xing.png" alt="linkedin" width="14" height="14" style="display:inline-block; margin-left:5px;width: 14px;height: 14px;"></a>
+                                {% endif %}
                                 {% if signature.github is not null %}
                                     <a href="{{ signature.github }}" target="_blank"><img src="{{ app.request.getSchemeAndHttpHost() }}/uploads/images/github.png" alt="github" width="14" height="14" style="display:inline-block; margin-left:5px;width: 14px;height: 14px;"></a>
                                 {% endif %}

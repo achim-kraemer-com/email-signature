@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html data-theme="dark">
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Email Signatur{% endblock %}</title>
@@ -13,6 +13,10 @@
     </head>
     <body>
         <main class="container">
+            <div class="heading">
+                <img id="achim-kraemer-image" src="{{ asset('images/20250519_1444_AK_Logo.png') }}" alt="Achim Krämer">
+                <h2>Achim Krämer</h2>
+            </div>
             {% if app.user and is_granted('ROLE_USER') %}
                 <h1>Email Signatur</h1>
                 <div class="my-body-grid">
