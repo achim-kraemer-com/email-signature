@@ -18,17 +18,17 @@
                 <img id="achim-kraemer-image" src="{{ asset('images/20250519_1444_AK_Logo.png') }}" alt="Achim Krämer">
                 <h2>Achim Krämer</h2>
             </div>
-            {% if app.user and is_granted('ROLE_USER') %}
                 <h1>Email Signatur</h1>
-                <div class="my-body-grid">
-                    {% include '_sidebar.html.twig' %}
+                {% if app.user and is_granted('ROLE_USER') %}
+                    <div class="my-body-grid">
+                        {% include '_sidebar.html.twig' %}
+                {% else %}
+                    <div>
+                {% endif %}
                     <main>
                         {% block body %}{% endblock %}
                     </main>
                 </div>
-            {% else %}
-                {% block body %}{% endblock %}
-            {% endif %}
         </main>
         {% block footer %}
             {{ include('_footer.html.twig') }}

@@ -4,10 +4,11 @@
 
 {% block body %}
     <h1>Signatur bearbeiten</h1>
+    <div class="my-grid">
+        {{ include('signature/_form.html.twig', {'button_label': 'Update'}) }}
 
-    {{ include('signature/_form.html.twig', {'button_label': 'Update'}) }}
+        <a role="button" class="btn-center" href="{{ path('homepage') }}">zurück zur Liste</a>
 
-    <a role="button" class="btn-center" href="{{ path('homepage') }}">zurück zur Liste</a>
-
-    {{ include('signature/_delete_form.html.twig') }}
+        {{ include('signature/_delete_form.html.twig') }}
+    </div>
 {% endblock %}

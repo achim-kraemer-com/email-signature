@@ -37,6 +37,27 @@ footer ul li a:hover {
 }
 
 :root {
+    /* Deine Wunschfarbe als Hintergrund & Rand */
+    --pico-primary-background: #9169f5;
+    --pico-primary-border: #9169f5;
+
+    /* HOVER: Eine dunklere Variante für den Hover-Effekt */
+    --pico-primary-hover-background: #764cdc;
+    --pico-primary-hover-border: #764cdc;
+
+    /* Textfarbe im Button (Weiß für guten Kontrast) */
+    --pico-primary-inverse: #ffffff;
+
+    /* --- 2. TEXTFELDER (INPUTS) --- */
+    /* Der Rand ist IMMER in deiner Farbe #9169f5 */
+    --pico-form-element-border-color: #9169f5;
+
+    /* Beim Hineinklicken (Focus) wird der Rand etwas dunkler (wie beim Button Hover) */
+    --pico-form-element-active-border-color: #764cdc;
+
+    /* Der "Leucht"-Ring beim Hineinklicken (Deine Farbe mit 25% Deckkraft) */
+    /* RGB Werte für #9169f5 sind 145, 105, 245 */
+    --pico-form-element-focus-color: rgba(145, 105, 245, 0.25);
     --pico-typography-spacing-vertical: 1.5rem;
     --pico-form-element-spacing-vertical: 0.4rem;
     --pico-form-element-spacing-horizontal: 0.6rem;
@@ -45,6 +66,7 @@ footer ul li a:hover {
     --pico-font-size: 0.9rem;
     --pico-line-height: 1.2;
     --pico-primary: #9169f5;
+    --pico-border-color: #9169f5;
     --pico-primary-hover: #7a58d1;
     --pico-primary-focus: rgba(145, 105, 245, 0.25);
 
@@ -52,16 +74,27 @@ footer ul li a:hover {
     --pico-table-border-color: #4a4a43;
     --pico-table-row-stripped-background-color: #33332d;
 }
+
 h1 {
     --pico-font-weight: 400;
     --pico-typography-spacing-vertical: 0.5rem;
 }
+
+a[role=button] {
+    --pico-background-color: #9169f5;
+    --pico-border-color: #9169f5;
+}
+
 button {
     --pico-font-weight: 700;
+    --pico-background-color: #9169f5;
+    --pico-border-color: #9169f5;
 }
+
 a {
     min-height: 10px;
 }
+
 .my-header-grid {
     display: grid;
     grid-template-columns: 80% 20%;
@@ -79,14 +112,21 @@ a {
     grid-template-columns: 10% 80%;
     gap: 1rem; /* optional */
 }
+
+.my-grid {
+    padding-bottom: 30px;
+}
+
 .button-red {
     --pico-background-color: #e53935;   /* Rot */
     --pico-border-color: #b71c1c;       /* Dunkleres Rot */
     --pico-color: white;                /* Text */
 }
+
 .button-red:hover {
     --pico-background-color: #b71c1c;
 }
+
 .btn-left {
     position: absolute;
     @media (min-width: 1280px) {
@@ -144,6 +184,7 @@ a {
     }
     left: 1280px;
 }
+
 .no-pico-wrapper,
 .no-pico-wrapper *,
 .no-pico-wrapper *::before,
@@ -159,21 +200,17 @@ a {
 .bg-white {
     background: #fff;
 }
+
 #achim-kraemer-image {
     width: 70px;
 }
+
 .heading {
     display: flex;
     align-items: center;
     gap: 1rem;
     margin-bottom: 20px;
 }
-/*img {*/
-/*    max-width: 100%;*/
-/*    height: auto;*/
-/*    width: 14px;*/
-/*    display: block;*/
-/*}*/
 
 /* Improved Table Design */
 table {

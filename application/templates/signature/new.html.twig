@@ -4,8 +4,9 @@
 
 {% block body %}
     <h1>Neue Signatur erstellen</h1>
+    <div class="my-grid">
+        {{ include('signature/_form.html.twig') }}
 
-    {{ include('signature/_form.html.twig') }}
-
-    <a role="button" class="btn-center" href="{{ path('homepage') }}">zurück zur Liste</a>
+        <a role="button" class="btn-center" href="{{ path('homepage') }}">zurück zur Liste</a>
+    </div>
 {% endblock %}

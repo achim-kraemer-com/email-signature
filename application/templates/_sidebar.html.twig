@@ -1,5 +1,6 @@
 <div class="sidebar">
     <nav>
+        <aside>
         <ul>
             <li>
                 <a href="{{ path('homepage') }}">
@@ -16,11 +17,18 @@
                 </li>
             {% endif %}
             <li>
+                <a href="{{ path('app_profile_index') }}">
+                    <i class="fas fa-users"></i>
+                    <span>Profil</span>
+                </a>
+            </li>
+            <li>
                 <a href="{{ path('logout') }}">
                     <i class="fas fa-sign-out-alt"></i>
                     <span>Logout</span>
                 </a>
             </li>
         </ul>
+        </aside>
     </nav>
 </div>
