@@ -1,3 +1,41 @@
+body {
+    padding-bottom: 80px; /* Adjust this value based on your footer's actual height */
+}
+
+/* Footer styles */
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #222222; /* Darker background for the footer */
+    padding: 1rem 0; /* Add some padding */
+    text-align: center;
+    z-index: 1000; /* Ensure it stays on top of other content */
+}
+
+footer .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+footer ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 1.5rem;
+}
+
+footer ul li a {
+    color: var(--pico-color); /* Use the main text color */
+    text-decoration: none;
+}
+
+footer ul li a:hover {
+    text-decoration: underline;
+}
+
 :root {
     --pico-typography-spacing-vertical: 1.5rem;
     --pico-form-element-spacing-vertical: 0.4rem;
