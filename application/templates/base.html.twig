@@ -5,6 +5,7 @@
         <title>{% block title %}Email Signatur{% endblock %}</title>
         {% block stylesheets %}
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
             <link rel="stylesheet" href="{{ asset('styles/app.css') }}">
         {% endblock %}
         {% block javascripts %}
@@ -21,11 +22,16 @@
                 <h1>Email Signatur</h1>
                 <div class="my-body-grid">
                     {% include '_sidebar.html.twig' %}
+                    <main>
+                        {% block body %}{% endblock %}
+                    </main>
                 </div>
+            {% else %}
+                {% block body %}{% endblock %}
             {% endif %}
         </main>
-        <main class="container">
-            {% block body %}{% endblock %}
-        </main>
+        {% block footer %}
+            {{ include('_footer.html.twig') }}
+        {% endblock %}
     </body>
 </html>

@@ -1,16 +1,25 @@
-<div class="w-64 bg-gray-800 text-white p-4">
+<div class="sidebar">
     <nav>
         <ul>
-            <li class="mb-2">
-                <a role="button" href="{{ path('homepage') }}" class="block hover:text-blue-400">Homepage</a>
+            <li>
+                <a href="{{ path('homepage') }}">
+                    <i class="fas fa-home"></i>
+                    <span>Homepage</span>
+                </a>
             </li>
             {% if app.user and is_granted('ROLE_ADMIN') %}
-                <li class="mb-2">
-                    <a role="button" href="{{ path('app_user_index') }}" class="block hover:text-blue-400">Benutzer</a>
+                <li>
+                    <a href="{{ path('app_user_index') }}">
+                        <i class="fas fa-users"></i>
+                        <span>Benutzer</span>
+                    </a>
                 </li>
             {% endif %}
-            <li class="mb-2">
-                <a role="button" href="{{ path('logout') }}" class="right block hover:text-blue-400">Logout</a>
+            <li>
+                <a href="{{ path('logout') }}">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
             </li>
         </ul>
     </nav>
