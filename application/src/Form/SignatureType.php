@@ -20,6 +20,12 @@ class SignatureType extends AbstractType
             ->add('signatureName', TextType::class, [
                 'label' => 'Name der Signatur',
             ])
+            ->add('welcome', TextType::class, [
+                'label' => 'Begrüßung',
+                'attr' => [
+                    'placeholder' => 'z.B. Liebe Grüße',
+                ],
+            ])
             ->add('firstName', TextType::class, [
                 'label' => 'Vorname',
             ])

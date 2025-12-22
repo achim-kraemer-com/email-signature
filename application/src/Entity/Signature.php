@@ -86,6 +86,9 @@ class Signature extends IdentifiableModel
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $owner = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $welcome = null;
+
     public function __construct(User $user)
     {
         parent::__construct();
@@ -400,6 +403,18 @@ class Signature extends IdentifiableModel
     public function setOwner(?string $owner): static
     {
         $this->owner = $owner;
+
+        return $this;
+    }
+
+    public function getWelcome(): ?string
+    {
+        return $this->welcome;
+    }
+
+    public function setWelcome(?string $welcome): static
+    {
+        $this->welcome = $welcome;
 
         return $this;
     }
