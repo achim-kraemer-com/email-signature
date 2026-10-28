@@ -22,8 +22,9 @@ class ProfileController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($user->getPassword()) {
-                $plainPassword = $form->get('password')->getData();
+            // An empty password field keeps the current password
+            $plainPassword = $form->get('password')->getData();
+            if ($plainPassword) {
                 $user->setPassword($encoder->hashPassword($user, $plainPassword));
             }
             $entityManager->flush();

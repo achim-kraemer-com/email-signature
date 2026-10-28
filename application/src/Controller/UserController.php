@@ -7,6 +7,7 @@ use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -29,6 +30,10 @@ final class UserController extends AbstractController
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
+
+        if ($form->isSubmitted() && !$form->get('password')->getData()) {
+            $form->get('password')->addError(new FormError('Bitte ein Passwort eingeben'));
+        }
 
         if ($form->isSubmitted() && $form->isValid()) {
             $plainPassword = $form->get('password')->getData();
@@ -60,8 +65,9 @@ final class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($user->getPassword()) {
-                $plainPassword = $form->get('password')->getData();
+            // An empty password field keeps the current password
+            $plainPassword = $form->get('password')->getData();
+            if ($plainPassword) {
                 $user->setPassword($encoder->hashPassword($user, $plainPassword));
             }
             $entityManager->flush();

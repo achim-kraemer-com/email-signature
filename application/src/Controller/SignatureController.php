@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Signature;
+use App\Entity\User;
 use App\Form\SignatureType;
 use App\Repository\SignatureRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -22,7 +23,7 @@ final class SignatureController extends AbstractController
     public function index(SignatureRepository $signatureRepository): Response
     {
         return $this->render('signature/index.html.twig', [
-            'signatures' => $signatureRepository->findAll(),
+            'signatures' => $signatureRepository->findBy(['user' => $this->getUser()]),
         ]);
     }
 
@@ -78,6 +79,8 @@ final class SignatureController extends AbstractController
     #[Route('/{id}', name: 'app_signature_show', methods: ['GET'])]
     public function show(Signature $signature): Response
     {
+        $this->denyAccessUnlessOwner($signature);
+
         return $this->render('signature/show.html.twig', [
             'signature' => $signature,
         ]);
@@ -86,6 +89,8 @@ final class SignatureController extends AbstractController
     #[Route('/{id}/edit', name: 'app_signature_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Signature $signature, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessOwner($signature);
+
         $form = $this->createForm(SignatureType::class, $signature);
         $form->handleRequest($request);
 
@@ -127,11 +132,25 @@ final class SignatureController extends AbstractController
     #[Route('/{id}', name: 'app_signature_delete', methods: ['POST'])]
     public function delete(Request $request, Signature $signature, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessOwner($signature);
+
         if ($this->isCsrfTokenValid('delete'.$signature->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($signature);
             $entityManager->flush();
         }
 
         return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);
+    }
+
+    /**
+     * Foreign signatures are reported as not found, so their IDs can't be probed.
+     */
+    private function denyAccessUnlessOwner(Signature $signature): void
+    {
+        $user = $this->getUser();
+
+        if (!$user instanceof User || $signature->getUser()?->getId() !== $user->getId()) {
+            throw $this->createNotFoundException();
+        }
     }
 }
