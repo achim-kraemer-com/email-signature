@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomepageController extends AbstractController
 {
-    #[Route('/', name: 'homepage')]
+    #[Route('/dashboard', name: 'homepage')]
     public function index(SignatureRepository $signatureRepository): Response
     {
         $user = $this->getUser();

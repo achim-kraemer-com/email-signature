@@ -18,7 +18,7 @@ class SignatureControllerTest extends HttpTestCase
         $this->createSignature($erika, 'Erika Privat');
         $this->logIn('max@example.com');
 
-        $content = (string) $this->request('GET', '/')->getContent();
+        $content = (string) $this->request('GET', '/dashboard')->getContent();
 
         self::assertStringContainsString('Max Business', $content);
         self::assertStringNotContainsString('Erika Privat', $content);
@@ -40,7 +40,7 @@ class SignatureControllerTest extends HttpTestCase
             '_token'        => $this->inputValue($form, 'signature[_token]'),
         ]]);
 
-        self::assertRedirectsTo('/', $response);
+        self::assertRedirectsTo('/dashboard', $response);
 
         $this->entityManager()->clear();
         $signatures = static::getContainer()->get(SignatureRepository::class)->findAll();
@@ -101,7 +101,7 @@ class SignatureControllerTest extends HttpTestCase
             '_token'        => $this->inputValue($form, 'signature[_token]'),
         ]]);
 
-        self::assertRedirectsTo('/', $response);
+        self::assertRedirectsTo('/dashboard', $response);
 
         $reloaded = $this->reload(Signature::class, $signature->getId());
         self::assertSame('Privat', $reloaded?->getSignatureName());
@@ -116,7 +116,7 @@ class SignatureControllerTest extends HttpTestCase
         $edit     = $this->request('GET', '/signature/'.$signature->getId().'/edit');
         $response = $this->request('POST', '/signature/'.$signature->getId(), ['_token' => $this->inputValue($edit, '_token')]);
 
-        self::assertRedirectsTo('/', $response);
+        self::assertRedirectsTo('/dashboard', $response);
         self::assertNull($this->reload(Signature::class, $signature->getId()));
     }
 
@@ -127,7 +127,7 @@ class SignatureControllerTest extends HttpTestCase
 
         $response = $this->request('POST', '/signature/'.$signature->getId(), ['_token' => 'invalid']);
 
-        self::assertRedirectsTo('/', $response);
+        self::assertRedirectsTo('/dashboard', $response);
         self::assertNotNull($this->reload(Signature::class, $signature->getId()));
     }
 

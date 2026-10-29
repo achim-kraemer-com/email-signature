@@ -1,4 +1,4 @@
-<form method="post" action="{{ path('app_signature_delete', {'id': signature.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+<form method="post" action="{{ path('app_signature_delete', {'id': signature.id}) }}" class="inline-form" onsubmit="return confirm('Diese Signatur wirklich löschen?');">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ signature.id) }}">
-    <button class="button-red btn-right">Löschen</button>
+    <button class="btn btn-danger btn-sm">Löschen</button>
 </form>

@@ -1,40 +1,45 @@
 <!DOCTYPE html>
-<html data-theme="dark">
+<html lang="de">
     <head>
         <meta charset="UTF-8">
         <title>Email Signatur - {% block title %}{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         {% block stylesheets %}
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
             <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon-16x16.png') }}">
             <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32x32.png') }}">
             <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('favicon-96x96.png') }}">
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap" rel="stylesheet">
             <link rel="stylesheet" href="{{ asset('styles/app.css') }}">
         {% endblock %}
         {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
+            {{ importmap('app') }}
         {% endblock %}
     </head>
     <body>
-        <main class="container">
-            <div class="heading">
-                <img id="achim-kraemer-image" src="{{ asset('images/20250519_1444_AK_Logo.png') }}" alt="Achim Krämer">
-                <h2>Achim Krämer</h2>
-            </div>
-                <h1>Email Signatur</h1>
-                {% if app.user and is_granted('ROLE_USER') %}
-                    <div class="my-body-grid">
-                        {% include '_sidebar.html.twig' %}
-                {% else %}
-                    <div>
-                {% endif %}
-                    <main>
-                        {% block body %}{% endblock %}
-                    </main>
-                </div>
-        </main>
-        {% block footer %}
-            {{ include('_footer.html.twig') }}
+        <div class="bg-aurora" aria-hidden="true"></div>
+
+        {% block layout %}
+            {% if app.user and is_granted('ROLE_USER') %}
+                {{ include('_sidebar.html.twig') }}
+            {% endif %}
+
+            <main class="admin-main">
+                {% for type, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="flashes">
+                            <div class="flash flash-{{ type == 'error' ? 'error' : 'success' }}">{{ message }}</div>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+
+                {% block body %}{% endblock %}
+            </main>
+
+            {% block footer %}
+                {{ include('_footer.html.twig') }}
+            {% endblock %}
         {% endblock %}
     </body>
 </html>

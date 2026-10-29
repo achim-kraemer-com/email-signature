@@ -3,29 +3,39 @@
 {% block title %}Email Signatur{% endblock %}
 
 {% block body %}
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Signatur Name</th>
-            <th>Aktionen</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for signature in signatures %}
-            <tr>
-                <td>{{ signature.signatureName }}</td>
-                <td>
-                    <a role="button" href="{{ path('app_signature_show', {'id': signature.id}) }}">anzeigen</a>
-                    <a role="button" href="{{ path('app_signature_edit', {'id': signature.id}) }}">bearbeiten</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="25">Keine Signatur</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="page-head">
+        <div>
+            <h1>Email Signatur</h1>
+            <p class="sub">Ihre gespeicherten Signaturen</p>
+        </div>
+        <div class="head-actions">
+            <a href="{{ path('app_signature_new') }}" class="btn btn-primary">+ Neue Signatur</a>
+        </div>
+    </div>
 
-    <a role="button" href="{{ path('app_signature_new') }}">Neue Signatur erstellen</a>
+    {% if signatures is empty %}
+        <div class="empty">Noch keine Signatur vorhanden.</div>
+    {% else %}
+        <div class="table-wrap">
+            <table class="data">
+                <thead>
+                    <tr>
+                        <th>Signatur Name</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for signature in signatures %}
+                        <tr>
+                            <td>{{ signature.signatureName }}</td>
+                            <td class="num row-actions">
+                                <a href="{{ path('app_signature_show', {'id': signature.id}) }}" class="btn btn-ghost btn-sm">Anzeigen</a>
+                                <a href="{{ path('app_signature_edit', {'id': signature.id}) }}" class="btn btn-ghost btn-sm">Bearbeiten</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
 {% endblock %}

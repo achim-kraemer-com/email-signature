@@ -48,12 +48,11 @@ abstract class HttpTestCase extends DatabaseTestCase
     protected function logIn(string $email, string $password = 'password'): void
     {
         $response = $this->request('POST', '/login', [
-            '_username'    => $email,
-            '_password'    => $password,
-            '_target_path' => '/',
+            '_username' => $email,
+            '_password' => $password,
         ]);
 
-        self::assertRedirectsTo('/', $response);
+        self::assertRedirectsTo('/dashboard', $response);
     }
 
     /**

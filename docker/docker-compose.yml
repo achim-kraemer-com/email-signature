@@ -1,74 +1,50 @@
+name: email-signature
+
 services:
     db:
-        image: mariadb:10.6.4
+        image: mariadb:10.6
         platform: linux/amd64
+        container_name: signature-db
+        restart: unless-stopped
         ports:
-            - "3306:3306"
+            - "3319:3306"
         environment:
             MYSQL_ROOT_PASSWORD: root
             MYSQL_DATABASE: symfony
             MYSQL_USER: symfony
             MYSQL_PASSWORD: symfony
+        healthcheck:
+            test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+            interval: 5s
+            timeout: 5s
+            retries: 20
         volumes:
-          - ./data/mariadb:/var/lib/mysql
+            - ./data/mariadb:/var/lib/mysql
 
-    apache:
-        build:
-            context: ./build/
-            dockerfile: Dockerfile_apache
+    app:
+        image: webdevops/php-apache:8.5
         platform: linux/amd64
         container_name: signature
-        restart: 'always'
+        restart: unless-stopped
+        depends_on:
+            db:
+                condition: service_healthy
         ports:
-            - "80:80"
+            - "8097:80"
         volumes:
             - ../application:/app:cached
-        working_dir: '/app/'
+        working_dir: /app
         environment:
-            # https://dockerfile.readthedocs.io/en/latest/content/DockerImages/dockerfiles/php-apache.html#php-ini-variables
             - "php.memory_limit=1G"
             - "PHP_DATE_TIMEZONE=Europe/Berlin"
             - "WEB_DOCUMENT_ROOT=/app/public"
-
-    apache-xdebug:
-        build:
-            context: ./build/
-            dockerfile: Dockerfile_apache_xdebug
-        platform: linux/amd64
-        container_name: signature-dev
-        restart: 'always'
-        ports:
-            - "8081:80"
-        volumes:
-            - ../application:/app:cached
-        working_dir: '/app/'
-        env_file:
-            - .env.xdebug
-        environment:
-            # https://dockerfile.readthedocs.io/en/latest/content/DockerImages/dockerfiles/php-apache.html#php-ini-variables
-            - "php.memory_limit=1G"
-            - "PHP_DATE_TIMEZONE=Europe/Berlin"
-            - "WEB_DOCUMENT_ROOT=/app/public"
-
-    node:
-        image: node:16
-        platform: linux/amd64
-        container_name: symfony_node
-        working_dir: /var/www/html
-        volumes:
-            - ../application:/var/www/html
-        command: [ "npm", "install" ]
-
-    mailcatcher:
-        image: tophfr/mailcatcher
-        platform: linux/amd64
-        ports:
-          - 1080:80
 
     adminer:
         image: adminer
         platform: linux/amd64
+        container_name: signature-adminer
+        restart: unless-stopped
         ports:
-          - 8080:8080
+            - "8094:8080"
         depends_on:
-          - db
+            - db

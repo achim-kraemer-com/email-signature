@@ -3,10 +3,10 @@
 {% block title %}Neue Signatur{% endblock %}
 
 {% block body %}
-    <h1>Neue Signatur erstellen</h1>
-    <div class="my-grid">
-        {{ include('signature/_form.html.twig') }}
+    <div class="breadcrumb"><a href="{{ path('homepage') }}">Signaturen</a> / Neu</div>
+    <div class="page-head"><h1>Neue Signatur erstellen</h1></div>
 
-        <a role="button" class="btn-center" href="{{ path('homepage') }}">zurück zur Liste</a>
+    <div class="card form-card">
+        {{ include('signature/_form.html.twig', {'cancel_path': path('homepage')}) }}
     </div>
 {% endblock %}

@@ -14,11 +14,9 @@ class SecurityTest extends HttpTestCase
      */
     public static function protectedPages(): iterable
     {
-        yield 'homepage' => ['/'];
+        yield 'dashboard' => ['/dashboard'];
         yield 'profile' => ['/profile'];
         yield 'new signature' => ['/signature/new'];
-        yield 'impress' => ['/impress'];
-        yield 'data protection' => ['/data-protection'];
         yield 'user admin' => ['/admin/user'];
     }
 
@@ -26,6 +24,39 @@ class SecurityTest extends HttpTestCase
     public function testAnonymousVisitorIsSentToLogin(string $uri): void
     {
         self::assertRedirectsTo('/login', $this->request('GET', $uri));
+    }
+
+    /**
+     * @return iterable<string, array{string}>
+     */
+    public static function publicPages(): iterable
+    {
+        yield 'landing page' => ['/'];
+        yield 'login' => ['/login'];
+        yield 'impress' => ['/impress'];
+        yield 'data protection' => ['/data-protection'];
+    }
+
+    #[DataProvider('publicPages')]
+    public function testPublicPageIsReachableWithoutLogin(string $uri): void
+    {
+        self::assertSame(200, $this->request('GET', $uri)->getStatusCode());
+    }
+
+    public function testLandingPageLinksToLogin(): void
+    {
+        $content = (string) $this->request('GET', '/')->getContent();
+
+        self::assertStringContainsString('href="/login"', $content);
+        self::assertStringContainsString('href="/impress"', $content);
+    }
+
+    public function testLoggedInUserSkipsLandingPage(): void
+    {
+        $this->createUser('max@example.com');
+        $this->logIn('max@example.com');
+
+        self::assertRedirectsTo('/dashboard', $this->request('GET', '/'));
     }
 
     public function testLoginPageIsPublic(): void
@@ -43,7 +74,7 @@ class SecurityTest extends HttpTestCase
 
         $this->logIn('max@example.com', 'geheim123');
 
-        self::assertSame(200, $this->request('GET', '/')->getStatusCode());
+        self::assertSame(200, $this->request('GET', '/dashboard')->getStatusCode());
     }
 
     public function testWrongPasswordShowsError(): void
@@ -64,7 +95,7 @@ class SecurityTest extends HttpTestCase
         $this->logIn('max@example.com');
 
         self::assertRedirectsTo('/', $this->request('GET', '/logout'));
-        self::assertRedirectsTo('/login', $this->request('GET', '/'));
+        self::assertRedirectsTo('/login', $this->request('GET', '/dashboard'));
     }
 
     public function testRegularUserCannotOpenUserAdmin(): void

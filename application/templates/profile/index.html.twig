@@ -1,9 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Benutzer bearbeiten{% endblock %}
+{% block title %}Mein Profil{% endblock %}
 
 {% block body %}
-    <h1>Benutzer bearbeiten</h1>
+    <div class="page-head">
+        <div>
+            <h1>Mein Profil</h1>
+            <p class="sub">{{ app.user.userIdentifier }}</p>
+        </div>
+    </div>
 
-    {{ include('user/_form.html.twig', {'button_label': 'Update'}) }}
+    <div class="card form-card">
+        {{ include('user/_form.html.twig', {'button_label': 'Update'}) }}
+    </div>
 {% endblock %}

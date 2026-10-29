@@ -3,32 +3,39 @@
 {% block title %}Benutzer{% endblock %}
 
 {% block body %}
-    <div class="container">
-        <h1>Benutzer</h1>
-
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Email</th>
-                    <th>Roles</th>
-                    <th>Passwort</th>
-                </tr>
-            </thead>
-            <tbody>
-            {% for user in users %}
-                <tr>
-                    <td> <a href="{{ path('app_user_edit', {'id': user.id}) }}">{{ user.email }}</a></td>
-                    <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-                    <td>{{ user.password }}</td>
-                </tr>
-            {% else %}
-                <tr>
-                    <td colspan="7">no records found</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-
-        <a role="button" href="{{ path('app_user_new') }}">Neuen Benutzer erstellen</a>
+    <div class="page-head">
+        <div>
+            <h1>Benutzer</h1>
+        </div>
+        <div class="head-actions">
+            <a href="{{ path('app_user_new') }}" class="btn btn-primary">+ Neuer Benutzer</a>
+        </div>
     </div>
+
+    {% if users is empty %}
+        <div class="empty">Keine Benutzer gefunden.</div>
+    {% else %}
+        <div class="table-wrap">
+            <table class="data">
+                <thead>
+                    <tr>
+                        <th>E-Mail</th>
+                        <th>Rollen</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td><a href="{{ path('app_user_edit', {'id': user.id}) }}">{{ user.email }}</a></td>
+                            <td class="muted">{{ user.roles ? user.roles|json_encode : '' }}</td>
+                            <td class="num row-actions">
+                                <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="btn btn-ghost btn-sm">Bearbeiten</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
 {% endblock %}

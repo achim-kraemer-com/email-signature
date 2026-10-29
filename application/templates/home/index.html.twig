@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Achim Krämer{% endblock %}
+
+{% block layout %}
+    <nav class="site-nav">
+        <a href="{{ path('app_home') }}" class="brand">{{ include('_brand_mark.html.twig') }} E-Mail-Signatur</a>
+        <div class="nav-actions">
+            <a href="{{ path('login') }}" class="btn btn-primary btn-sm">Anmelden</a>
+        </div>
+    </nav>
+
+    <main class="hero">
+        <span class="eyebrow animate-in">E-Mail-Signaturen · Achim Krämer</span>
+        <h1 class="animate-in delay-1">Professionelle E-Mail-Signaturen <span class="gradient-text">in wenigen Minuten</span></h1>
+        <p class="lead animate-in delay-2">
+            Kontaktdaten einmal eintragen, Logo hochladen und die fertige Signatur
+            mit einem Klick in Outlook, Apple Mail oder Gmail einfügen.
+        </p>
+        <div class="hero-actions animate-in delay-2">
+            <a href="{{ path('login') }}" class="btn btn-primary">Anmelden →</a>
+        </div>
+
+        <div class="feature-grid animate-in delay-3">
+            <div class="card feature">
+                <div class="icon" aria-hidden="true">✍️</div>
+                <h3>Alles an einem Ort</h3>
+                <p>Name, Firma, Adresse, Telefon, Social-Media-Links und Bankverbindung in einem Formular.</p>
+            </div>
+            <div class="card feature">
+                <div class="icon" aria-hidden="true">🎨</div>
+                <h3>Zwei Stile</h3>
+                <p>Jede Signatur gibt es in zwei Layouts – mit rundem Logo, das beim Hochladen zugeschnitten wird.</p>
+            </div>
+            <div class="card feature">
+                <div class="icon" aria-hidden="true">📋</div>
+                <h3>Mit einem Klick kopiert</h3>
+                <p>Die Signatur landet formatiert in der Zwischenablage und lässt sich direkt ins Mailprogramm einfügen.</p>
+            </div>
+        </div>
+    </main>
+
+    {{ include('_footer.html.twig') }}
+{% endblock %}

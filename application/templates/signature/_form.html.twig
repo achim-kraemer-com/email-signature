@@ -1,5 +1,5 @@
 {{ form_start(form) }}
-    <div class="grid">
+    <div class="signature-form-grid">
         <div>
             {{ form_row(form.signatureName) }}
             {{ form_row(form.welcome) }}
@@ -20,8 +20,8 @@
             {{ form_row(form.fax) }}
             {{ form_row(form.logo) }}
             {% if signature.logo is not null %}
-                <div class="mb-4 email-signal-img">
-                    <img src="{{ url('homepage') }}{{ signature.logo }}">
+                <div class="email-signal-img">
+                    <img src="{{ absolute_url(asset(signature.logo)) }}" alt="Logo">
                 </div>
             {% endif %}
         </div>
@@ -38,5 +38,10 @@
             {{ form_row(form.bic) }}
         </div>
     </div>
-    <button class="btn btn-left">{{ button_label|default('Speichern') }}</button>
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">{{ button_label|default('Speichern') }}</button>
+        {% if cancel_path is defined %}
+            <a href="{{ cancel_path }}" class="btn btn-ghost">Abbrechen</a>
+        {% endif %}
+    </div>
 {{ form_end(form) }}

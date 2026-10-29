@@ -1,33 +1,40 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Dashboard{% endblock %}
+{% block title %}Signaturen{% endblock %}
 
 {% block body %}
-    <h1>Signatur</h1>
+    <div class="page-head">
+        <div>
+            <h1>Signaturen</h1>
+        </div>
+        <div class="head-actions">
+            <a href="{{ path('app_signature_new') }}" class="btn btn-primary">+ Neue Signatur</a>
+        </div>
+    </div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>SignatureName</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for signature in signatures %}
-            <tr>
-                <td>{{ signature.signatureName }}</td>
-                <td>
-                    <a role="button" href="{{ path('app_signature_show', {'id': signature.id}) }}">show</a>
-                    <a role="button" href="{{ path('app_signature_edit', {'id': signature.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="25">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a role="button" class="btn-left" href="{{ path('app_signature_new') }}">Neue Signatur erstellen</a>
+    {% if signatures is empty %}
+        <div class="empty">Keine Signaturen gefunden.</div>
+    {% else %}
+        <div class="table-wrap">
+            <table class="data">
+                <thead>
+                    <tr>
+                        <th>Signatur Name</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for signature in signatures %}
+                        <tr>
+                            <td>{{ signature.signatureName }}</td>
+                            <td class="num row-actions">
+                                <a href="{{ path('app_signature_show', {'id': signature.id}) }}" class="btn btn-ghost btn-sm">Anzeigen</a>
+                                <a href="{{ path('app_signature_edit', {'id': signature.id}) }}" class="btn btn-ghost btn-sm">Bearbeiten</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
 {% endblock %}

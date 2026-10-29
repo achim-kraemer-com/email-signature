@@ -33,7 +33,7 @@ class ProfileControllerTest extends HttpTestCase
             '_token'   => $this->inputValue($form, 'user[_token]'),
         ]]);
 
-        self::assertRedirectsTo('/', $response);
+        self::assertRedirectsTo('/dashboard', $response);
         $reloaded = $this->reload(User::class, $user->getId());
         self::assertTrue(static::getContainer()->get(UserPasswordHasherInterface::class)->isPasswordValid($reloaded, 'neu12345'));
     }
@@ -63,7 +63,7 @@ class ProfileControllerTest extends HttpTestCase
             '_token' => $this->inputValue($form, 'user[_token]'),
         ]]);
 
-        self::assertRedirectsTo('/', $response);
+        self::assertRedirectsTo('/dashboard', $response);
         $reloaded = $this->reload(User::class, $user->getId());
         self::assertTrue(static::getContainer()->get(UserPasswordHasherInterface::class)->isPasswordValid($reloaded, 'alt12345'));
     }
